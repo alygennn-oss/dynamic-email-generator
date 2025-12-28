@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Response Logic Engine</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">Academic Response Logic Engine</h1>
+                <p class="app-subtitle">Streamlined workflow for academic advising inquiries</p>
+            </div>
+            <div class="header-stats">
+                <span class="stat-badge">Average Time Saved: 8 min/query</span>
+            </div>
+        </header>
+
+        <!-- Main Content: Three Pane Layout -->
+        <main class="main-content">
+            <!-- LEFT PANE: Category Selector -->
+            <aside class="sidebar-left">
+                <div class="sidebar-header">
+                    <h2>Inquiry Categories</h2>
+                    <input type="text" id="categorySearch" placeholder="Search categories..." class="search-input">
+                </div>
+                
+                <div class="category-list" id="categoryList">
+                    <button class="category-btn active" data-category="raf">
+                        <span class="category-icon">RAF</span>
+                        <div class="category-info">
+                            <span class="category-name">RAF Processing</span>
+                            <span class="category-desc">Registration adjustment forms</span>
+                        </div>
+                    </button>
+                    
+                    <button class="category-btn" data-category="opt">
+                        <span class="category-icon">OPT</span>
+                        <div class="category-info">
+                            <span class="category-name">OPT Inquiry</span>
+                            <span class="category-desc">Work authorization questions</span>
+                        </div>
+                    </button>
+                    
+                    <button class="category-btn" data-category="letter">
+                        <span class="category-icon">LTR</span>
+                        <div class="category-info">
+                            <span class="category-name">Letter Request</span>
+                            <span class="category-desc">Official documentation</span>
+                        </div>
+                    </button>
+                    
+                    <button class="category-btn" data-category="return">
+                        <span class="category-icon">RTN</span>
+                        <div class="category-info">
+                            <span class="category-name">Return/Readmission</span>
+                            <span class="category-desc">Form submission status</span>
+                        </div>
+                    </button>
+                    
+                    <button class="category-btn" data-category="admissions">
+                        <span class="category-icon">ADM</span>
+                        <div class="category-info">
+                            <span class="category-name">Admissions Questions</span>
+                            <span class="category-desc">Graduate admissions referral</span>
+                        </div>
+                    </button>
+                    
+                    <button class="category-btn" data-category="international">
+                        <span class="category-icon">I20</span>
+                        <div class="category-info">
+                            <span class="category-name">International Student Services</span>
+                            <span class="category-desc">I-20 and visa inquiries</span>
+                        </div>
+                    </button>
+                    
+                    <button class="category-btn" data-category="calendar">
+                        <span class="category-icon">CAL</span>
+                        <div class="category-info">
+                            <span class="category-name">Academic Calendar</span>
+                            <span class="category-desc">Important dates</span>
+                        </div>
+                    </button>
+                    
+                    <button class="category-btn" data-category="concentration">
+                        <span class="category-icon">CHG</span>
+                        <div class="category-info">
+                            <span class="category-name">Change Concentration</span>
+                            <span class="category-desc">Degree program modification</span>
+                        </div>
+                    </button>
+                    
+                    <button class="category-btn" data-category="incoming">
+                        <span class="category-icon">NEW</span>
+                        <div class="category-info">
+                            <span class="category-name">Incoming Student Registration</span>
+                            <span class="category-desc">New student setup</span>
+                        </div>
+                    </button>
+                    
+                    <button class="category-btn" data-category="course">
+                        <span class="category-icon">CRS</span>
+                        <div class="category-info">
+                            <span class="category-name">Course Registration Issues</span>
+                            <span class="category-desc">Enrollment problems</span>
+                        </div>
+                    </button>
+                    
+                    <button class="category-btn" data-category="leave">
+                        <span class="category-icon">LOA</span>
+                        <div class="category-info">
+                            <span class="category-name">Leave of Absence</span>
+                            <span class="category-desc">Gap year inquiries</span>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="recent-queries">
+                    <h3>Recent Queries</h3>
+                    <div id="recentList" class="recent-list">
+                        <p class="empty-state">No recent queries yet</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- CENTER PANE: Logic Workspace -->
+            <section class="workspace">
+                <div class="workspace-header">
+                    <h2 id="workspaceTitle">RAF Processing</h2>
+                    <div class="workspace-actions">
+                        <button class="btn-secondary" id="resetBtn">Reset Form</button>
+                        <button class="btn-primary" id="generateBtn">Generate Email</button>
+                    </div>
+                </div>
+
+                <div class="workspace-content">
+                    <!-- Student Information -->
+                    <div class="form-section">
+                        <h3 class="section-title">Student Information</h3>
+                        <div class="form-grid">
+                            <div class="form-field">
+                                <label for="studentName">Student Name</label>
+                                <input type="text" id="studentName" placeholder="Enter student name">
+                            </div>
+                            <div class="form-field">
+                                <label for="studentUNI">UNI (Optional)</label>
+                                <input type="text" id="studentUNI" placeholder="Enter UNI">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Department Lookup -->
+                    <div class="form-section" id="deptSection">
+                        <h3 class="section-title">Department Information</h3>
+                        <div class="form-field">
+                            <label for="deptCode">Department Code</label>
+                            <input 
+                                type="text" 
+                                id="deptCode" 
+                                placeholder="e.g., APAM, MECE, ELEN"
+                                autocomplete="off"
+                            >
+                            <div id="deptSuggestions" class="dept-suggestions"></div>
+                        </div>
+                        <div id="deptInfo" class="dept-info-box"></div>
+                    </div>
+
+                    <!-- Dynamic Conditions -->
+                    <div class="form-section" id="conditionsSection">
+                        <h3 class="section-title">Inquiry Details</h3>
+                        <div id="conditionsContainer" class="conditions-grid">
+                            <!-- Dynamically populated based on category -->
+                        </div>
+                    </div>
+
+                    <!-- Additional Notes -->
+                    <div class="form-section">
+                        <h3 class="section-title">Additional Notes (Optional)</h3>
+                        <div class="form-field">
+                            <textarea 
+                                id="additionalNotes" 
+                                placeholder="Add any case-specific information..."
+                                rows="3"
+                            ></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT PANE: Live Preview -->
+            <aside class="sidebar-right">
+                <div class="preview-header">
+                    <h2>Email Preview</h2>
+                    <button class="btn-copy" id="copyBtn">
+                        <span class="copy-icon">Copy to Clipboard</span>
+                    </button>
+                </div>
+                
+                <div class="preview-content" id="previewContent">
+                    <div class="preview-placeholder">
+                        <div class="placeholder-icon">Preview</div>
+                        <p>Your email will appear here</p>
+                        <p class="placeholder-hint">Complete the form and click Generate Email</p>
+                    </div>
+                </div>
+
+                <div class="preview-status" id="previewStatus">
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Ready to generate</span>
+                    </div>
+                </div>
+
+                <!-- Keyboard Shortcuts Guide -->
+                <div class="shortcuts-panel">
+                    <h3>Keyboard Shortcuts</h3>
+                    <div class="shortcuts-list">
+                        <div class="shortcut-item">
+                            <kbd>Ctrl</kbd> + <kbd>R</kbd>
+                            <span>RAF Processing</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>Ctrl</kbd> + <kbd>O</kbd>
+                            <span>OPT Inquiry</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>Ctrl</kbd> + <kbd>Enter</kbd>
+                            <span>Generate Email</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>Ctrl</kbd> + <kbd>K</kbd>
+                            <span>Copy to Clipboard</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
